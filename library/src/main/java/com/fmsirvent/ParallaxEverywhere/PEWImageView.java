@@ -246,7 +246,7 @@ public class PEWImageView extends ImageView {
         int[] location = new int[2];
         getLocationOnScreen(location);
 
-        if (scrollSpaceY != 0) {
+        if (scrollSpaceY != 0 && !blockParallaxY) {
             float locationY = (float) location[1];
             float locationUsableY = locationY + heightImageView / 2;
             float scrollDeltaY = locationUsableY / screenHeight;
@@ -257,9 +257,11 @@ public class PEWImageView extends ImageView {
                 setMyScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * -scrollSpaceY));
             else
                 setMyScrollY((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaY), -0.5f), 0.5f) * scrollSpaceY));
+        }else{
+            setMyScrollY(0);
         }
 
-        if (scrollSpaceX != 0) {
+        if (scrollSpaceX != 0 && !blockParallaxX) {
             float locationX = (float) location[0];
             float locationUsableX = locationX + widthImageView / 2;
             float scrollDeltaX = locationUsableX / screenWidth;
@@ -271,6 +273,8 @@ public class PEWImageView extends ImageView {
             } else {
                 setMyScrollX((int) (Math.min(Math.max((0.5f - interpolatedScrollDeltaX), -0.5f), 0.5f) * scrollSpaceX));
             }
+        }else{
+            setMyScrollX(0);
         }
     }
 
